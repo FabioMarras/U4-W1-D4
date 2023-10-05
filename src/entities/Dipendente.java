@@ -1,14 +1,14 @@
 package entities;
 
 public class Dipendente {
-    private double StipendioBase = 1000;
+    private double StipendioBase ;
     private String Matricola;
     private double Stipendio;
     private double Straordinario;
     //    private static LivelliGenerali.Livello LivelliGenerali;
 //    private Dipartimento.Livello Dipartimento;
     private Livello LivelloOperaio;
-    private static Dipartimento Dipartimento;
+    private Dipartimento DipartimentoOperaio;
 
     public enum Livello {
         OPERAIO,
@@ -25,19 +25,23 @@ public class Dipendente {
 
     public Dipendente(String Matricola, Dipartimento Dipartimento) {
         this.Matricola = Matricola;
-        this.Dipartimento = Dipartimento;
-        this.StipendioBase = StipendioBase;
+        this.DipartimentoOperaio = Dipartimento;
+        this.StipendioBase = 1000;
         this.Straordinario = 30;
         this.LivelloOperaio = Livello.OPERAIO;
+        straord();
+        stipend();
     }
 
     public Dipendente(String Matricola, double Straordinario, Livello Livello, Dipartimento Dipartimento) {
         this.Matricola = Matricola;
-        this.StipendioBase = StipendioBase;
-        this.Stipendio = Stipendio;
+        this.StipendioBase = 1000;
+        this.Stipendio = StipendioBase;
         this.Straordinario = Straordinario;
         this.LivelloOperaio = Livello;
-        this.Dipartimento = Dipartimento;
+        this.DipartimentoOperaio = Dipartimento;
+        stipend();
+        straord();
     }
 
 //    public class LivelliGenerali {
@@ -90,9 +94,6 @@ public class Dipendente {
 //        return LivelliGenerali;
 //    }
 
-    public Dipendente.Dipartimento getDipartimento() {
-        return Dipartimento;
-    }
 
     public void setLivelloOperaio(Livello livelloOperaio) {
         LivelloOperaio = livelloOperaio;
@@ -102,8 +103,16 @@ public class Dipendente {
         Straordinario = straordinario;
     }
 
-    public void setDipartimento(String dipartimento) {
-        Dipartimento = Dipendente.Dipartimento.valueOf(dipartimento);
+    public void setDipartimento(String Dipartimento) {
+        Dipartimento = Dipartimento;
+    }
+
+    public Dipartimento getDipartimentoOperaio() {
+        return DipartimentoOperaio;
+    }
+
+    public void setDipartimentoOperaio(Dipartimento dipartimentoOperaio) {
+        DipartimentoOperaio = dipartimentoOperaio;
     }
 
     @Override
@@ -114,7 +123,7 @@ public class Dipendente {
                 ", Stipendio=" + Stipendio +
                 ", Straordinario=" + Straordinario +
                 ", LivelloOperaio='" + LivelloOperaio + '\'' +
-                ", Dipartimento='" + Dipartimento + '\'' +
+                ", Dipartimento='" + DipartimentoOperaio + '\'' +
                 '}';
     }
 
@@ -142,7 +151,22 @@ public class Dipendente {
                 break;
         }
     }
+
     public void straord() {
- this.Stipendio = this.Straordinario * 10 + this.StipendioBase;
+        this.Stipendio = this.Straordinario * 10 + this.StipendioBase;
     }
-}
+
+    public void stipend() {
+        if (this.LivelloOperaio == Livello.OPERAIO) {
+            this.StipendioBase = 1000;
+        } else if
+        (this.LivelloOperaio == Livello.IMPIEGATO) {
+            this.StipendioBase = 1000 * 1.2;
+        } else if
+        (this.LivelloOperaio == Livello.QUADRO) {
+            this.StipendioBase = 1000 * 1.5;
+        }else if
+        (this.LivelloOperaio == Livello.DIRIGENTE) {
+            this.StipendioBase = 1000 * 2;
+    }
+}}
